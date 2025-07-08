@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,39 +28,61 @@
     }
 
     body {
-      margin: 0;
-      font-family: 'Poppins', 'Open Sans', 'Roboto','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, var(--dark-bg), #12121c) fixed;
-      color: var(--text-color);
-    }
+  margin: 0;
+  font-family: 'Poppins', 'Open Sans', 'Roboto','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  position: relative;
+  overflow-x: hidden;
+  z-index: 1;
+}
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: transparent;
-      color: var(--accent-color);
-      padding: 20px;
-      flex-wrap: wrap;
-      border-bottom: 2px solid white;
-      position: relative;
-      z-index: 1;
-    }
-    header::after {
+/* Background image applied globally */
+body::before {
   content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 4px;
-  width: 100%;
-  background: linear-gradient(270deg, #00ffff, #3f2b96, #a8c0ff, #00ffff);
-  background-size: 600% 600%;
-  animation: animatedBorder 6s ease infinite;
-  border-radius: 2px;
+  position: fixed;
+  bottom: 50px;
+  left: -200px;
+  width: 200%;
+  height: 150%;
+  background: url('images/header-bg.jpg') no-repeat center center;
+  background-size: 25%;
+  transform: skewY(-25deg) scale(1.5);
+  opacity: 0.9;
+  filter: blur(1px) brightness(0.8);
+  z-index: -1;
+}
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  
   z-index: -1;
 }
 
-    .logo {
+header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+       background: linear-gradient(to right, rgba(0, 100,0, 0.7) 40%, rgba(0, 0, 0, 0) 100%);
+      color: white;
+      padding: 20px;
+      border-bottom: 2px solid white;
+      position: relative;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      height: 4px; width: 100%;
+      background: linear-gradient(270deg, #00ffff, #3f2b96, #a8c0ff, #00ffff);
+      background-size: 600% 600%;
+      animation: animatedBorder 6s ease infinite;
+      border-radius: 2px;
+      z-index: -1;
+    }   
+ .logo {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
@@ -72,8 +95,8 @@
     }
 
     .logo .tagline {
-      font-size: 1rem;
-      color: #808000;
+      font-size: 1.6rem;
+      color: yellow;
       font-style: italic;
       text-shadow: 0 0 5px #808000, 0 0 10px #808000;
       animation: blinkGlow 1.2s infinite alternate;
@@ -194,8 +217,9 @@ nav {
 
 
     .blinker {
-position: relative;
-      color: var(--accent-color);
+      font-family:  system-ui;
+      position: relative;
+      color: white;
       font-weight: bold;
       text-align: center;
       animation: blink 1s infinite;
@@ -210,28 +234,79 @@ position: relative;
     }
 
     .container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 30px;
-      margin: 40px auto;
-      max-width: 1200px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-    }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 30px; padding-bottom: 10px;
+  margin-top:  15px;
+  max-width: 1200px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
 
-    .sidebar {
-      flex: 1 1 300px;
-    }
+.sidebar {
+  flex: 1 1 280px;
+}
 
-    .content {
-      flex: 2 1 500px;
-    }
+.content {
+  flex: 3 1 500px;
 
+}
+
+.news-box {
+  width: 100%;
+  max-width: 300px;
+  background: rgba(0, 0, 0, 0.07);
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,255,0,0.3);
+  font-family: 'Roboto', sans-serif;
+}
+
+.news-title {
+  background: darkgreen;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.news-wrapper {
+  height: 100px; /* show only 2 items at a time */
+  overflow: hidden;
+  position: relative;
+}
+
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  animation: scrollNews 6s linear infinite;
+}
+
+.news-list li {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Pause on hover */
+.news-wrapper:hover .news-list {
+  animation-play-state: paused;
+}
+
+/* Animation */
+@keyframes scrollNews {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
     .chairman img {
-      max-width: 100%;
+       height: 250px;
+      object-fit: cover; background-color: transparent;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,255,255,0.3);
       margin-bottom: 10px;
@@ -239,7 +314,7 @@ position: relative;
 h1{
   font-family: "Manufacturing Consent", system-ui;
   font-weight: 500;font-size: 3.5rem;
-  font-style: normal;
+  font-style: normal;color: white;
 }
  h2{
   font-family: "Manufacturing Consent", system-ui;
@@ -250,11 +325,11 @@ h1{
   font-family: "Manufacturing Consent", system-ui;
   font-weight: 400;
   font-style: normal;
- color: var(--accent-color);
+ color: white;
 }
 
  
-p, nav {
+p, nav, .blinker {
   font-family: 'Roboto', sans-serif;
 }
     .gallery-grid {
@@ -418,6 +493,7 @@ p, nav {
   }
 
   .blinker {
+position: absolute;
     font-size: 1rem; 
   }
 }
@@ -484,6 +560,7 @@ p, nav {
   font-size: 0.85rem;
   font-weight: bold;
 }
+
 .carousel-item {
   transition: transform 0.6s ease-in-out;
 }
@@ -571,16 +648,7 @@ p, nav {
 </nav>
 
 <div class="container">
-  <aside class="sidebar">
-    <div class="chairman">
-      <img src="images/N16.png" alt="Photo of Chairman" />
-      <h3>Chairman's Message</h3>
-      <p>Welcome to Almapark Associates. As Chairman, I am honored to present our 
-       shared vision for meaningful change through education and community development.</p>
-    </div>
-</aside>
-
-  <section class="content">
+<section class="content">
     <div id="gdcCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
   <ol class="carousel-indicators">
     <li data-target="#gdcCarousel" data-slide-to="0" class="active"></li>
@@ -592,7 +660,7 @@ p, nav {
     <div class="carousel-item active">
       <img src="images/n1.jpg" class="d-block w-100" alt="Slide 1">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Welcome to GDC Venai</h5>
+        <h5>Welcome to Almapark School System</h5>
         <p>Your future begins here.</p>
       </div>
     </div>
@@ -623,6 +691,29 @@ p, nav {
 </div>
 
   </section>
+
+  <aside class="sidebar">
+    <div class="chairman">
+      <img src="images/N16.png" alt="Photo of Chairman" />
+      <h3>Chairman's Message</h3>
+      <p>Welcome to Almapark Associates. As Chairman, I am honored to present our 
+       shared vision for meaningful change through education and community development.</p>
+    </div>
+</aside>
+
+  <div class="news-box">
+  <div class="news-title">📢 Latest News</div>
+  <div class="news-wrapper">
+    <ul class="news-list">
+      <li>Admissions open for 2025 session.</li>
+      <li>New digital classrooms inaugurated.</li>
+      <li>Science fair scheduled for August 12.</li>
+      <li>Midterm exams begin from August 15.</li>
+    </ul>
+  </div>
+</div>
+
+</div>
 </div>
 
 <div class="footer">
